@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prime Number Checker</title>
+  <style>
+    body {
+      font-family: Arial;
+      margin: 40px;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    #result {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Prime Number Checker</h2>
+
+  <input type="number" id="number" placeholder="Enter a number" />
+  <button onclick="checkPrime()">Check</button>
+
+  <div id="result"></div>
+
+  <script>
+    async function checkPrime() {
+      const number = parseInt(document.getElementById("number").value);
+      const resultDiv = document.getElementById("result");
+
+      const response = await fetch("http://localhost:3000/check-prime", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ number })
+      });
+
+      const data = await response.json();
+      resultDiv.textContent = data.message;
+    }
+  </script>
+
+</body>
+</html>
